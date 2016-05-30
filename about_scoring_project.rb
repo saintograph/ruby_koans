@@ -31,6 +31,18 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
+  
+  # A set of three ones is 1000 points
+  score = [0, 100, 200, 1000, 1100, 1200][dice.count(1)]
+  
+  # A set of three numbers (other than ones) is worth 100 times the number. (e.g. three fives is 500 points).
+  [2,3,4,6].each{ |roll| if dice.count(roll) >= 3 then score += roll * 100 end  }
+  
+  # A five (that is not part of a set of three) is worth 50 points
+  score += [0, 50, 100, 500, 550, 600][dice.count(5)]
+  
+  return score
+  
 end
 
 class AboutScoringProject < Neo::Koan
